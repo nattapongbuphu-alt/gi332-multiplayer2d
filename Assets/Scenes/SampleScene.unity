@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealingZone
       objectReference: {fileID: 0}
+    - target: {fileID: 7038897441966511262, guid: ce5414692a0307e4da65beb578a56af7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -867,6 +871,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealingZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7038897441966511262, guid: ce5414692a0307e4da65beb578a56af7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -995,7 +1003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1089490873
 MonoBehaviour:
   m_ObjectHideFlags: 0
