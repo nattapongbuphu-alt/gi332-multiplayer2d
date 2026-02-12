@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 396171149
       objectReference: {fileID: 0}
+    - target: {fileID: 732583775973214694, guid: 70b71ea191c865d4db104386d36faf08, type: 3}
+      propertyPath: Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2428159753432065927, guid: 70b71ea191c865d4db104386d36faf08, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
