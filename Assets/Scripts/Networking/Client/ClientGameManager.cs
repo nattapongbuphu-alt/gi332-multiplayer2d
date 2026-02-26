@@ -1,22 +1,26 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
-using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Text;
 
-public class ClientGameManager
+public class ClientGameManager : IDisposable
 {
     private JoinAllocation allocation;
+    private NetworkClient networkClient;
     private const string MenuSceneName = "Menu";
     public async Task<bool> InitAsync()
     {
         await UnityServices.InitializeAsync();
+
+        networkClient = new NetworkClient(NetworkManager.Singleton);
 
         AuthState authState = await AuthenticationWrapper.DoAuth();
 
@@ -47,12 +51,14 @@ public class ClientGameManager
 
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
 
-        RelayServerData relayServerData = allocation.ToRelayServerData("dtls");
-        transport.SetRelayServerData(relayServerData);
+        RelayServerData relayServiceData = allocation.ToRelayServerData("dtls");
+        transport.SetRelayServerData(relayServiceData);
 
-        UserData userData = new UserData
+        UserData userData = new UserData()
         {
-            userName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name")
+            userName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name"),
+            userAuthId = AuthenticationService.Instance.PlayerId,
+            teamIndex = PlayerPrefs.GetInt(TeamSelector.PlayerTeamKey,0)
         };
         string payload = JsonUtility.ToJson(userData);
         byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
@@ -61,4 +67,15 @@ public class ClientGameManager
 
         NetworkManager.Singleton.StartClient();
     }
+
+    public void Disconnect()
+    {
+        networkClient.Disconnect();
+    }
+
+    public void Dispose()
+    {
+        networkClient?.Dispose();
+    }
 }
+ 

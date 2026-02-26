@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using UnityEngine;
-
+ 
 public class HostSingleton : MonoBehaviour
 {
     private static HostSingleton instance;
-
+ 
     public HostGameManager GameManager { get; private set; }
     public static HostSingleton Instance
     {
@@ -12,7 +12,7 @@ public class HostSingleton : MonoBehaviour
         {
             if (instance != null) { return instance; }
             instance = FindFirstObjectByType<HostSingleton>();
-
+ 
             if (instance == null)
             {
                 Debug.LogError("No HostSingleton in the scene!");
@@ -25,9 +25,14 @@ public class HostSingleton : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-
+ 
     public void CreateHost()
     {
         GameManager = new HostGameManager();
     }
+    private void OnDestroy()
+    {
+        GameManager?.Dispose();
+    }
 }
+ 
