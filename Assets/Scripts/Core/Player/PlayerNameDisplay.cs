@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using TMPro;
 using Unity.Collections;
@@ -24,4 +25,3 @@ public class PlayerNameDisplay : MonoBehaviour
         player.PlayerName.OnValueChanged -= HandlePlayerNameChanged;
     }
 }
- 
